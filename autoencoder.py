@@ -42,7 +42,7 @@ class Autoencoder(nn.Module):
         self.validation_loss_per_epoch = np.array([])
         self.epochs = 0
     
-    def train_model(self, epochs, dataloader, distance, optimizer, device, testloader = None):
+    def train_model(self, epochs, dataloader, distance, optimizer, device, val_loader = None):
         """ trains the model, updates the weights and biases automatically. At each epoch the loss is added
         into the train loss array
         """
@@ -68,9 +68,9 @@ class Autoencoder(nn.Module):
             # into account the size of the batch that we load each time since the last batch may be smaller.
             # That's why we multiply each time by len(data) and we divide by the size of the data set in the end
             
-            if testloader:
+            if val_loader:
                 val_loss_epoch, valset_size = (0,0)
-                for data in testloader:
+                for data in val_loader:
                     img = Variable(data).to(device)
                     loss = distance(self(img), img)
                     val_loss_epoch += loss.item() * len(data)
