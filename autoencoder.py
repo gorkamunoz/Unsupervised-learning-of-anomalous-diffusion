@@ -197,7 +197,7 @@ class Autoencoder(nn.Module):
         self.epochs = self.model_dict['epochs']
         if evaluate:
             self.eval()
-        return('model loaded')
+        print('model loaded')
     
     def plot_loss(self, figsize=(8,6.5), logscale=True, split='train'):
         """ plots the loss-per-epoch of a trained model
